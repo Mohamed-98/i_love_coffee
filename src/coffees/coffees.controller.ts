@@ -8,17 +8,20 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Res,
 } from '@nestjs/common';
 import { response } from 'express';
+// import { off } from 'process';
 
 @Controller('coffees')
 export class CoffeesController {
   @Get('')
   //   fineAll(@Res() response) {
-  fineAll() {
+  fineAll(@Query() paginationQuery) {
+    const { limit, offset } = paginationQuery;
     // response.status(200).send('fine123456');
-    return 'fine Work';
+    return `This action return all coffee . Limit: ${limit}, offset: ${offset}`;
   }
 
   @Get(':id')
