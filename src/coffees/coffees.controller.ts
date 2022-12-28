@@ -12,36 +12,37 @@ import {
   Res,
 } from '@nestjs/common';
 import { response } from 'express';
-// import { off } from 'process';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) {}
   @Get('')
   //   fineAll(@Res() response) {
   fineAll(@Query() paginationQuery) {
-    const { limit, offset } = paginationQuery;
+    // const { limit, offset } = paginationQuery;
     // response.status(200).send('fine123456');
-    return `This action return all coffee . Limit: ${limit}, offset: ${offset}`;
+    return this.coffeesService.findAll();
   }
 
   @Get(':id')
-  finOne(@Param('id') id: string) {
-    return 'test id fine ' + id;
+  finOne(@Param('id') id: number) {
+    return this.coffeesService.findOne(id);
   }
 
   @Post()
   //   @HttpCode(HttpStatus.GONE)
   creart(@Body() body) {
-    return body;
+    return this.coffeesService.create(body);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {
-    return 'test2 id is fine is updated! ' + id;
+  update(@Param('id') id: number, @Body() body) {
+    return this.coffeesService.update(id, body);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return 'test3 id is fine is deleted ' + id;
+  remove(@Param('id') id: number) {
+    return this.coffeesService.remove(id);
   }
 }
