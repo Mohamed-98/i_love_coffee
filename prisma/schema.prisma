@@ -9,3 +9,13 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+model User {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  best_flaver String
+  age Int
+  address String
+  phone Int
+  email String  @unique
+  
+}
